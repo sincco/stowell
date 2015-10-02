@@ -39,9 +39,23 @@ if(!file_exists("./Etc/Config/config.xml")) {
 	file_put_contents("./sfphp.md5", Sfphp_Disco::MD5("./Sfphp"));
 	echo "Inicializando directorios...<br>";
 	if(!is_dir("./App")) {
-		mkdir("./App", 0750);
-		mkdir("./App/Core", 0750);
+		mkdir("./App", 0770);
+		mkdir("./App/Core", 0770);
+		mkdir("./App/Core/Controladores", 0770);
+		mkdir("./App/Core/Modelos", 0770);
+		mkdir("./App/Core/Vistas", 0770);
 		file_put_contents("./App/.htaccess", "Options -Indexes");
+		file_put_contents("./App/Core/.htaccess", "Options -Indexes");
+		file_put_contents("./App/Core/Controladores/.htaccess", "Options -Indexes");
+		file_put_contents("./App/Core/Modelos/.htaccess", "Options -Indexes");
+		file_put_contents("./App/Core/Vistas/.htaccess", "Options -Indexes");
+		file_put_contents("./App/Core/Controladores/Inicio.php", "<?php class Controladores_Inicio extends Sfphp_Controlador{ public function inicio() { echo 'sfphp2::Hola Mundo'; } }");
+		chmod("./App/.htaccess", 0750);
+		chmod("./App/Core/.htaccess", 0750);
+		chmod("./App/Core/Controladores/.htaccess", 0750);
+		chmod("./App/Core/Modelos/.htaccess", 0750);
+		chmod("./App/Core/Vistas/.htaccess", 0750);
+		chmod("./App/Core/Controladores/Inicio.php", 0770);
 	}
 	if(!is_dir("./Libs"))
 		mkdir("./Libs", 0770);
@@ -54,6 +68,10 @@ if(!file_exists("./Etc/Config/config.xml")) {
 		file_put_contents("./Etc/Config/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Logs/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Sesiones/.htaccess", "Options -Indexes");
+		chmod("./Etc/.htaccess", 0750);
+		chmod("./Etc/Config/.htaccess", 0750);
+		chmod("./Etc/Logs/.htaccess", 0750);
+		chmod("./Etc/Sesiones/.htaccess", 0750);
 	}
 	echo "Inicializando archivo de configuración...<br>";
 	$_llave_encripcion = strtoupper(md5(microtime().rand()));
@@ -98,11 +116,13 @@ if(!file_exists("./Etc/Config/config.xml")) {
 	);
 	if(Sfphp_Disco::arregloXML($_config,"config","./Etc/Config/config.xml"))
 	{
-		chmod("./Etc/Config/config.xml", 0750);
-		echo 'Configuración básica completa.';
+		chmod("./Etc/Config/config.xml", 0770);
+		echo "Configuración basica completa.<br>";
+		echo "<a href=\"./\">Ve al inicio de tu app</a>";
 	}
 	else
-		echo 'Hubo un error al escribir la configuración.';
+		echo "Hubo un error al escribir la configuracion.<br>";
 } else {
-	echo "El framework ya está configurado<br>Configura tu aplicación";
+	echo "El framework ya esta configurado<br>";
+	echo "<a href=\"./\">Ve al inicio de tu app</a>";
 }

@@ -34,6 +34,8 @@
 abstract class Sfphp_Controlador {
 	protected $_vista;
 	protected $_modelo;
+
+	abstract function inicio();
 	
 	# Cualquier instancia tiene el atributo de vista inicilizado
 	public function __construct(){
