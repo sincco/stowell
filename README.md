@@ -8,6 +8,28 @@ Haciendo uso de patrones singleton, carga de clases tipo Zend, y una implementac
 de vistas, Sfphp, te puede ayudar a desarrollar una aplicación en un menor tiempo y organizando tus códigos
 de mejor manera.
 
+### Uso
+Clona este repositorio, y ejecuta el script:
+```
+dominio.com/iniciar.php
+```
+Esto dejará una nueva estructura de directorios dónde comenzarás a alojar tu aplicación
+App
+|-Core
+|-Controladores
+|-|-Inicio.php
+|-Modelos
+|-Vistas
+Etc
+|-Config
+|-|-config.xml
+|-Logs
+|-Sesiones
+Libs
+
+#### O
+Clona el branch skeleton, con una app sencilla de ejemplo
+
 ### Peticiones
 Cada petición se procesa seccionando la URL del siguiente modo:
 ```
