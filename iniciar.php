@@ -98,7 +98,7 @@ if(!file_exists("./Etc/Config/config.xml")) {
 	);
 	if(Sfphp_Disco::arregloXML($_config,"config","./Etc/Config/config.xml"))
 	{
-		chmod("./Etc/Config/config.xml", "0750");
+		chmod("./Etc/Config/config.xml", 0750);
 		echo 'Configuración básica completa.';
 	}
 	else
