@@ -1,0 +1,6 @@
+#Excluir la APP del repositorio maestro
+/App
+/Etc
+/html
+*.md
+*.md5
