@@ -39,17 +39,17 @@ if(!file_exists("./Etc/Config/config.xml")) {
 	file_put_contents("./sfphp.md5", Sfphp_Disco::MD5("./Sfphp"));
 	echo "Inicializando directorios...<br>";
 	if(!is_dir("./App")) {
-		mkdir("./App", 0774);
-		mkdir("./App/Core", 0774);
+		mkdir("./App", 0750);
+		mkdir("./App/Core", 0750);
 		file_put_contents("./App/.htaccess", "Options -Indexes");
 	}
 	if(!is_dir("./Libs"))
-		mkdir("./Libs", 0774);
+		mkdir("./Libs", 0770);
 	if(!is_dir("./Etc")) {
-		mkdir("./Etc", 0774);
-		mkdir("./Etc/Config", 0774);
-		mkdir("./Etc/Logs", 0774);
-		mkdir("./Etc/Sesiones", 0774);
+		mkdir("./Etc", 0750);
+		mkdir("./Etc/Config", 0750);
+		mkdir("./Etc/Logs", 0750);
+		mkdir("./Etc/Sesiones", 0750);
 		file_put_contents("./Etc/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Config/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Logs/.htaccess", "Options -Indexes");
@@ -98,7 +98,7 @@ if(!file_exists("./Etc/Config/config.xml")) {
 	);
 	if(Sfphp_Disco::arregloXML($_config,"config","./Etc/Config/config.xml"))
 	{
-		chmod("./Etc/Config/config.xml", "774")
+		chmod("./Etc/Config/config.xml", "0750");
 		echo 'Configuración básica completa.';
 	}
 	else
