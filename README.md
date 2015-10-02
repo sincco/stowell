@@ -14,6 +14,7 @@ Clona este repositorio, y ejecuta el script:
 dominio.com/iniciar.php
 ```
 Esto dejará una nueva estructura de directorios dónde comenzarás a alojar tu aplicación
+```
 App
 |-Core
 |-Controladores
@@ -26,7 +27,7 @@ Etc
 |-Logs
 |-Sesiones
 Libs
-
+```
 #### O
 Clona el branch skeleton, con una app sencilla de ejemplo
 
