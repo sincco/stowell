@@ -28,8 +28,46 @@ Etc
 |-Sesiones
 Libs
 ```
-#### O
+##### O
 Clona el branch skeleton, con una app sencilla de ejemplo
+
+## Configuracion
+
+### General de la APP
+```
+<app>
+	<key>la clave generada por el script iniciar.php o que puedes obtener desde el scrip llave.php</key>
+	<name>nombre de la app</name>
+	<company>sincco</company>
+</app>
+```
+### Front end
+```
+<front>
+	<url>http://tudominio.com/</url>
+</front>
+```
+### Bases de datos
+Sólo puedes tener una por default (a la que se conectan todos los modelos por defecto), pero tantas como necesites con un identificador distinto
+```
+<bases>
+	<default>
+		<host></host>
+		<user></user>
+		<password>encriptado con la llave de la app, puedes usar en script encriptar.php?s=password</password>
+		<dbname></dbname>
+		<type>firebird|mysql|sqlsrv|otro</type>
+	</default>
+</bases>
+```
+### Opciones de desarrollo
+```
+<dev>
+		<log>1|0 activa el log del framework (en Etc/Logs)</log>
+		<showerrors>1|0 muestra los errores propios del framework en pantalla</showerrors>
+		<showphperrors>1|0 muestra los errores de php</showphperrors>
+	</dev>
+```
 
 ### Peticiones
 Cada petición se procesa seccionando la URL del siguiente modo:
@@ -62,4 +100,4 @@ This source file is subject to the Open Software License (OSL 3.0) that is avail
 http://opensource.org/licenses/osl-3.0.php
 
 **Happy coding!**
-- [ivan mirandar](http://ivanmiranda.me)
+- [ivan miranda](http://ivanmiranda.me)
