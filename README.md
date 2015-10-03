@@ -36,7 +36,7 @@ Clona el branch skeleton, con una app sencilla de ejemplo
 ### General de la APP
 ```
 <app>
-	<key>la clave generada por el script iniciar.php o que puedes obtener desde el scrip llave.php</key>
+	<key>la clave generada por el script iniciar.php o que puedes obtener desde el script llave.php</key>
 	<name>nombre de la app</name>
 	<company>sincco</company>
 </app>
