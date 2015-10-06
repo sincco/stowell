@@ -172,7 +172,7 @@ final class Sfphp_Peticion
 		);
 		if (is_array($valor)) {
 			foreach ($valor as $_key => $_value)
-				$valor[$_key] = self::limpiarPOST($_value); #Recursivo para arreglos
+				$valor[$_key] = self::limpiarEntradaPOST($_value); #Recursivo para arreglos
 		}else
 			$valor = preg_replace($_busquedas, '', $valor);
 		return $valor;
