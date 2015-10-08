@@ -124,8 +124,10 @@ final class Sfphp_Peticion
 		}
 		switch($_contenido_tipo) {
 			case "application/json":
-			foreach (json_decode($_contenido, TRUE) as $key => $value) {
-				$_parametros[$key] = self::limpiarEntradaPOST($value);
+			if(trim($_contenido) != "") {
+				foreach (json_decode($_contenido, TRUE) as $key => $value) {
+					$_parametros[$key] = self::limpiarEntradaPOST($value);
+				}
 			}
 			break;
 			case "application/x-www-form-urlencoded":
