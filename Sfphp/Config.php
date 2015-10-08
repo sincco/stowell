@@ -39,21 +39,22 @@ final class Sfphp_Config
 
 	private function __construct()
 	{
-		if(file_exists("./Etc/Config/config.xml"))
-		{
-			$_bases = array();
-			$_config = self::xml2array(new SimpleXMLElement(file_get_contents("./Etc/Config/config.xml")));
-			if(!isset($_config["front"]["url"]))
-				$_config["front"]["url"] = self::url();
-			define("BASE_URL",$_config["front"]["url"]);
-			foreach ($_config["app"] as $key => $value)
-				define(strtoupper("app_".$key),$value);
-			foreach ($_config["dev"] as $key => $value)
-				define(strtoupper("dev_".$key),$value);
-			foreach ($_config["sesion"] as $key => $value)
-				define(strtoupper("sesion_".$key),$value);
-			$this->config = $_config;
-		}
+		$local = "./Etc/Config/config_local.xml";
+		$file = "./Etc/Config/config.xml";
+		if(file_exists($local))
+			$file = $local
+		$_bases = array();
+		$_config = self::xml2array(new SimpleXMLElement(file_get_contents("./Etc/Config/config.xml")));
+		if(!isset($_config["front"]["url"]))
+			$_config["front"]["url"] = self::url();
+		define("BASE_URL",$_config["front"]["url"]);
+		foreach ($_config["app"] as $key => $value)
+			define(strtoupper("app_".$key),$value);
+		foreach ($_config["dev"] as $key => $value)
+			define(strtoupper("dev_".$key),$value);
+		foreach ($_config["sesion"] as $key => $value)
+			define(strtoupper("sesion_".$key),$value);
+		$this->config = $_config;
 	}
 
 	public static function get($atributo = '')
