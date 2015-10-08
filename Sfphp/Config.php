@@ -42,9 +42,9 @@ final class Sfphp_Config
 		$local = "./Etc/Config/config_local.xml";
 		$file = "./Etc/Config/config.xml";
 		if(file_exists($local))
-			$file = $local
+			$file = $local;
 		$_bases = array();
-		$_config = self::xml2array(new SimpleXMLElement(file_get_contents("./Etc/Config/config.xml")));
+		$_config = self::xml2array(new SimpleXMLElement(file_get_contents($file)));
 		if(!isset($_config["front"]["url"]))
 			$_config["front"]["url"] = self::url();
 		define("BASE_URL",$_config["front"]["url"]);
