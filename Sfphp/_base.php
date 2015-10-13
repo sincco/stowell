@@ -50,19 +50,15 @@ spl_autoload_register(
                 # adecuaciones sin modificar la ruta original del sistema e incluso
                 # poder realizar sobreescritura de clases básicas
                 if(file_exists("./App/Local/".$_archivo)) {
-                    #echo "./App/Local/".$_archivo;
                     include_once "./App/Local/".$_archivo;
                 }
                 elseif(file_exists("./App/Core/".$_archivo)) {
-                    #echo "./App/Core/".$_archivo;
                     include_once "./App/Core/".$_archivo;
                 }
                 elseif(file_exists("./Libs/".$_archivo)) {
-                    #echo "./Libs/".$_archivo;
                     include_once "./Libs/".$_archivo;
                 }
                 else  {
-                    #echo "No existe";
                     throw new Sfphp_Error("La clase {$nombreClase} no existe :: {$_archivo}", 1);
                 }
             }

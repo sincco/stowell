@@ -40,11 +40,16 @@ final class Sfphp_Disparador {
 			$clase = ucwords($peticion['_modulo'])."_";
 		$clase .= "Controladores_".ucwords($peticion['_control']);
 		try {
-			$objClase = new $clase();
-			if(is_callable(array($objClase, $peticion['_accion'])))
-				call_user_func(array($objClase, $peticion['_accion']));
-			else
-				throw new Sfphp_Error("La accion {$peticion['_accion']} no esta definida en {$clase}", 1);
+			$objSeguridad = new Seguridad();
+			if($objSeguridad->validarAcceso(ucwords($peticion['_control']))) {
+				$objClase = new $clase();
+				if(is_callable(array($objClase, $peticion['_accion'])))
+					call_user_func(array($objClase, $peticion['_accion']));
+				else
+					throw new Sfphp_Error("La accion {$peticion['_accion']} no esta definida en {$clase}", 1);
+			} else {
+				throw new Sfphp_Error("No tienes privilegios para acceder a {$clase}::{$peticion['_accion']}", 1);
+			}
 		} catch (Sfphp_Error $e) {
 			Sfphp_Logs::procesa($e);
 		}
