@@ -191,7 +191,7 @@ final class Sfphp_Vista {
 		$_codigoReemplazo = "";
 		$_columnas = array();
 		$_titulos = array();
-		preg_match_all ('/<.*?grid(.*?)>/', $this->_html, $_etiquetas);
+		preg_match_all ('/<.*?excel(.*?)>/', $this->_html, $_etiquetas);
 		foreach ($_etiquetas[1] as $_clave => $_etiqueta) {
 			preg_match_all ('/datos="([a-zA-Z0-9\-_]*?)"/', $_etiqueta, $_data);
 			preg_match_all ('/cambios="([a-zA-Z]*?)"/', $_etiqueta, $_cambios);
@@ -215,9 +215,9 @@ final class Sfphp_Vista {
           },\n";
 			} else 
 				$_cambios = false;
-			
-			if(isset(get_object_vars($this)[$_data])) {
-				$_datos = get_object_vars($this)[$_data];
+			$objeto = get_object_vars($this);
+			if(isset($objeto[$_data])) {
+				$_datos = $objeto[$_data];
 				if(is_array($_datos)) {
 					if(count($_datos) > 0) {
 						$_json = json_encode($_datos);
