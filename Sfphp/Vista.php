@@ -163,7 +163,9 @@ final class Sfphp_Vista {
 				$_clic = false;
 			if(isset(get_object_vars($this)[$_data])) {
 				$_datos = get_object_vars($this)[$_data];
-				if(is_array($_datos)) {
+				if(is_null($_datos))
+					$_datos = array();
+				if(count($_datos)) {
 					$_json = json_encode($_datos);
 					foreach (array_keys($_datos[0]) as $_llave => $_valor) {
 					 	array_push($_columns,"{field:'".$_valor."',title:'".$_valor."',sortable:true, visible:true}");
