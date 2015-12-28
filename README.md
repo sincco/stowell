@@ -105,7 +105,7 @@ server {
         server_name sitio;
         index index.php;
         client_max_body_size 2M;
-        root /var/www/dominios/sitio;
+        root /var/www/sitio;
         proxy_set_header    Host              $host;
         proxy_set_header    X-Real-IP         $remote_addr;
         proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
