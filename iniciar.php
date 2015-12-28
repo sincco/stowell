@@ -32,7 +32,7 @@
 # y un archivo de configuración con los parametros obligados
 # -----------------------
 
-require_once './Sfphp/__base.php';
+require_once './Sfphp/_base.php';
 
 if(!file_exists("./Etc/Config/config.xml")) {
 	echo "Inicializando el framework...<br>";
@@ -114,7 +114,7 @@ if(!file_exists("./Etc/Config/config.xml")) {
 			'showphperrors' => 0,
 		),
 	);
-	if(Sfphp_Disco::arregloXML($_config,"config","./Etc/Config/config.xml"))
+	if(Sfphp_Disco::grabaXML($_config,"config","./Etc/Config/config.xml"))
 	{
 		chmod("./Etc/Config/config.xml", 0770);
 		echo "Configuración basica completa.<br>";

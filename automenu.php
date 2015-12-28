@@ -28,83 +28,38 @@
 # @author: Iván Miranda
 # @version: 1.0.0
 # -----------------------
-# Para manejo de archivos y directorios
+# Arma un menú automático con todas las funciones creadas en el sistema
 # -----------------------
 
-final class Sfphp_Disco {
+require_once './Sfphp/_base.php';
 
-#------------------------------------
-# Funciones de XML
-#------------------------------------
-	# Graba un XML desde un arreglo
-	public static function grabaXML ($arreglo, $root, $archivo) {
-		$_xml = new SimpleXMLElement("<?xml version=\"1.0\"?><".$root."></".$root.">");
-		self::array_to_xml($arreglo,$_xml);
-		return $_xml->asXML($archivo);
-	}
-
-	# Parsea el XML a un arreglo multidimensional
-	public static function XMLArreglo ($xml) {
-		$resp = array();
-		foreach ( (array) $xml as $indice => $nodo )
-			$resp[$indice] = ( is_object ( $nodo ) ) ? self::XMLArreglo($nodo) : $nodo;
-		return $resp;
-	}
-
-	public function arregloXML($array, $root) {
-		$_xml = new SimpleXMLElement("<?xml version=\"1.0\"?><".$root."></".$root.">");
-		foreach($array as $key => $value) {
-			if(is_array($value)) {
-				if(!is_numeric($key)){
-					$subnode = $_xml->addChild("$key");
-					self::array_to_xml($value, $subnode);
-				} else{
-					$subnode = $_xml->addChild("item$key");
-					self::array_to_xml($value, $subnode);
-				}
-			} else {
-				$_xml->addChild("$key",htmlspecialchars("$value"));
-			}
-		}
-		return $_xml;
-	}
-
-	private function array_to_xml($array, &$_xml) {
-		foreach($array as $key => $value) {
-			if(is_array($value)) {
-				if(!is_numeric($key)){
-					$subnode = $_xml->addChild("$key");
-					self::array_to_xml($value, $subnode);
-				} else{
-					$subnode = $_xml->addChild("item$key");
-					self::array_to_xml($value, $subnode);
-				}
-			} else {
-				$_xml->addChild("$key",htmlspecialchars("$value"));
-			}
-		}
-	}
-
-#------------------------------------
-# Calcula el hash de una archivo o directorio
-#------------------------------------
-	public static function MD5($directory) {
-		if (! is_dir($directory)) {
-			return md5_file($directory);
-		}
-		$files = array();
-		$dir = dir($directory);
-		while (false !== ($file = $dir->read())) {
-			if ($file != '.' and $file != '..') {
-				if (is_dir($directory . '/' . $file)) {
-					$files[] = self::MD5($directory . '/' . $file);
-				}
-				else {
-					$files[] = md5_file($directory . '/' . $file);
-				}
-			}
-		}
-		$dir->close();
-		return md5(implode('', $files));
-	}
-}
+$menu = array();
+// foreach (scandir("App/Core/Controladores") as $_archivo) {
+// 	if("php" == pathinfo($_archivo, PATHINFO_EXTENSION)) {
+// 		$_clase = "Controladores_".str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo);
+// 		$_controlador = new $_clase;
+// 		foreach (get_class_methods($_controlador) as $_metodo) {
+// 			if("Inicio" != str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo)) {
+// 				if("api" != substr($_metodo, 0,3) && "_" != substr($_metodo, 0,1))
+// 					if("inicio" == $_metodo)
+// 						array_push($menu, array(
+// 							"texto"=>ucwords(str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo)), 
+// 							"url"=>strtolower(str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo))
+// 							)
+// 						);
+// 					else
+// 						array_push($menu, array(
+// 							"texto"=>ucwords(str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo)." ".$_metodo), 
+// 							"url"=>strtolower(str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo))."/".$_metodo
+// 							)
+// 						);
+// 			}
+// 		};
+// 	}
+// }
+$_menu = array();
+array_push($_menu, array("texto"=>"Clientes","url"=>"clientes"));
+array_push($_menu, array("texto"=>"Proveedores","url"=>"proveedores"));
+array_push($menu, array("text"=>"Catalogos","menu"=>$_menu));
+var_dump($menu);
+Sfphp_Disco::grabaXML($menu,"menu","./Etc/Config/menu2.xml");

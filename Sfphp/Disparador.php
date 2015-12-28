@@ -48,7 +48,8 @@ final class Sfphp_Disparador {
 				else
 					throw new Sfphp_Error("La accion {$peticion['_accion']} no esta definida en {$clase}", 1);
 			} else {
-				throw new Sfphp_Error("No tienes privilegios para acceder a {$clase}::{$peticion['_accion']}", 1);
+				header("Location: ".BASE_URL."Etc/Errors/process.php?code=401");
+				die();
 			}
 		} catch (Sfphp_Error $e) {
 			Sfphp_Logs::procesa($e);

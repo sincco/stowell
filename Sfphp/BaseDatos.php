@@ -35,9 +35,9 @@ final class Sfphp_BaseDatos {
     static private $default; 
     static private $instancia;
    #Conexion a la BD desde la creación de la clase
-    private function __construct() {
+    private function __construct($configuracion = "default") {
         $base = Sfphp_Config::get('bases');
-        $base = $base['default'];
+        $base = $base[$configuracion];
         if(!self::$default) {
             try {
                 if(!isset($base["charset"]))
@@ -75,10 +75,10 @@ final class Sfphp_BaseDatos {
         //return self::$default;              
     }
 
-    public static function get()
+    public static function get($base = "default")
     {
         if(!self::$instancia instanceof self)
-            self::$instancia = new self();
+            self::$instancia = new self($base);
         return self::$instancia;
     }
 

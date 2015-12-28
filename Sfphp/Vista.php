@@ -44,6 +44,7 @@ final class Sfphp_Vista {
 		$this->_html = $this->cargarArchivo($vista.".tpl");
 		if($this->_html) {
 			$this->asignaVariables();
+			$this->procesaMenu();
 			$this->procesaIncluir();
 			$this->procesaVariables();
 			$this->procesaCiclo();
@@ -63,6 +64,34 @@ final class Sfphp_Vista {
 			return file_get_contents($_path);
 		else
 			return FALSE;
+	}
+
+#Procesa la etiqueta de menu
+	private function procesaMenu() {
+		preg_match_all ('/<.*?menu(.*?)>/', $this->_html, $_etiquetas);
+		foreach ($_etiquetas[1] as $_clave => $_etiqueta) {
+			$_menus = Sfphp_Disco::XMLArreglo(new SimpleXMLElement(file_get_contents("./Etc/Config/menu.xml")));
+			$_html = '<div class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="{BASE_URL}dashboard">{APP_NAME}</a></div><div class="navbar-collapse collapse navbar-responsive-collapse"><ul class="nav navbar-nav navbar-right">';
+			foreach ($_menus as $_menu) {
+				if(isset($_menu["menu"])) {
+					$_html .= '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$_menu["texto"].' <b class="caret"></b></a><ul class="dropdown-menu">';
+                	foreach ($_menu["menu"] as $_submenu) {
+                		if(isset($_submenu["texto"]))
+                			$_html .= '<li><a href="{BASE_URL}'.$_submenu["url"].'">'.$_submenu["texto"].'</a></li>';
+                		else
+                			$_html .= '<li role="separator" class="divider"></li>';
+                	}
+                	$_html .= '</ul></li>';
+				} else {
+					if(isset($_menu["texto"]))
+            			$_html .= '<li><a href="{BASE_URL}'.$_menu["url"].'">'.$_menu["texto"].'</a></li>';
+            		else
+            			$_html .= '<li role="separator" class="divider"></li>';
+				}
+			}
+			$_html .= '</div></div>';
+			$this->_html = str_replace('<menu>', $_html, $this->_html);
+		}
 	}
 
 #Procesa las etiquetas de inclusion de archivos externos a la plantilla

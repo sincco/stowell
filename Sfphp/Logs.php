@@ -59,7 +59,8 @@ final class Sfphp_Logs {
 			fwrite($log_file,"URL: http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI']."\r\n");
 			fwrite($log_file, "SESSION: "."\r\n-->id: ".session_id()."\r\n-->data: \r\n");
 			foreach ($_SESSION as $key => $value) {
-				fwrite($log_file, "-->-->{$key} = ".$value."\r\n");
+				if(!is_array($value))
+					fwrite($log_file, "-->-->{$key} = ".$value."\r\n");
 			}
 			fwrite($log_file, "IP: ".Sfphp::obtenIP()." - PHP ".phpversion()." - ".PHP_OS."(".PHP_SYSCONFDIR." ".PHP_BINARY.")\r\n");
 			fwrite($log_file,"--------------------------------------------\r\n");

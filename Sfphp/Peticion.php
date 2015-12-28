@@ -38,11 +38,13 @@ final class Sfphp_Peticion
 	private $_accion;
 	private $_parametros;
 	private $_previa;
+	private $metodo;
 	private static $_instancia;
 
 # La estructura de una peticion es:
 #   modulo/controlador/accion/[parametros]
 	private function __construct() {
+		$this->metodo = strtoupper(trim($_SERVER['REQUEST_METHOD']));
 		if(isset($_SERVER['HTTP_REFERER']))
 			$this->_previa = $_SERVER['HTTP_REFERER'];
 		else
@@ -56,11 +58,9 @@ final class Sfphp_Peticion
 			$_segmentos = array_filter(explode('/', urldecode($_GET['url'])));
 		# Si no existe el modulo específico, se quita para buscarlo a nivel
 		# general de la app
-			if(is_dir("./App/Local/".ucwords($_segmentos[0]))) {
-				#echo "./App/Local/".ucwords($_segmentos[0]);
+			if(is_dir("./App/Local/".ucwords(array_shift(array_filter(explode('/', urldecode($_GET['url']))))))) {
 				$this->_modulo = array_shift($_segmentos);
-			} elseif(is_dir("./App/Core/".ucwords($_segmentos[0]))) {
-				#echo "./App/Core/".ucwords($_segmentos[0]);
+			} elseif(is_dir("./App/Core/".ucwords(array_shift(array_filter(explode('/', urldecode($_GET['url']))))))) {
 				$this->_modulo = array_shift($_segmentos);
 			} else {
 				$this->_modulo = NULL;

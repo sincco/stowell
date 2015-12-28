@@ -46,5 +46,11 @@ abstract class Sfphp_Modelo {
 		return $this->db->query("SELECT * FROM ".$tabla.";");
 	}
 
+	public function query($query) {
+		return $this->db->query($query);
+	}
 
+	public function insert($query) {
+		return $this->db->insert($query);
+	}
 }

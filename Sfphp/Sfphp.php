@@ -132,7 +132,7 @@ final class Sfphp
 			$contenido = utf8_decode($contenido);
 		return $contenido;
 	}
-
+	
 	public static function convierteUTF8($array)
 	{
 	    array_walk_recursive($array, function(&$item, $key){
