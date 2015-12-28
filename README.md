@@ -95,6 +95,64 @@ se obtiene:
 (['fruta'] => ['color']) ,
 (['rojo'] => NULL) 
 ```
+
+### Nginx
+Configuración básica para un vhost en Nginx
+```
+server {
+        listen       80;
+        listen       [::]:80;
+        server_name sitio;
+        index index.php;
+        client_max_body_size 2M;
+        root /var/www/dominios/sitio;
+        proxy_set_header    Host              $host;
+        proxy_set_header    X-Real-IP         $remote_addr;
+        proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
+
+        # Don't serve hidden files.
+        location ~ /\. {
+                deny all;
+        }
+
+        location = /favicon.ico {
+                log_not_found off;
+        }
+
+        location / {
+                try_files $uri /index.php?$args;
+        }
+
+        location ~ \.php$ {
+                fastcgi_pass unix:/var/run/php5-fpm.sock;
+                fastcgi_index index.php;
+                include fastcgi_params;
+
+                #Activar CACHE PHP
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_intercept_errors on;
+                fastcgi_ignore_client_abort off;
+                fastcgi_connect_timeout 60;
+                fastcgi_send_timeout 90;
+                fastcgi_read_timeout 90;
+                fastcgi_buffer_size 128k;
+                fastcgi_buffers 4 256k;
+                fastcgi_busy_buffers_size 256k;
+                fastcgi_cache CZONE;
+                fastcgi_cache_valid   200 302  1h;
+                fastcgi_cache_valid   301 1h;
+                fastcgi_cache_min_uses  2;
+        }
+
+        #Para Framewok de PHP
+        if (!-e $request_filename){
+                rewrite ^(.+)$ /index.php?url=$1 break;
+        }
+
+        error_log /var/www/__logs/|error error;
+}
+```
 #### NOTICE OF LICENSE
 This source file is subject to the Open Software License (OSL 3.0) that is available through the world-wide-web at this URL:
 http://opensource.org/licenses/osl-3.0.php
