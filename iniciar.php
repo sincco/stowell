@@ -73,6 +73,7 @@ if(!file_exists("./Etc/Config/config.xml")) {
 		chmod("./Etc/Logs/.htaccess", 0750);
 		chmod("./Etc/Sesiones/.htaccess", 0750);
 	}
+} else {
 	echo "Inicializando archivo de configuración...<br>";
 	$_llave_encripcion = strtoupper(md5(microtime().rand()));
 	$_config = array (
@@ -122,7 +123,6 @@ if(!file_exists("./Etc/Config/config.xml")) {
 	}
 	else
 		echo "Hubo un error al escribir la configuracion.<br>";
-} else {
-	echo "El framework ya esta configurado<br>";
-	echo "<a href=\"./\">Ve al inicio de tu app</a>";
 }
+echo "El framework ya esta configurado<br>";
+echo "<a href=\"./\">Ve al inicio de tu app</a>";
