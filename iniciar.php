@@ -34,7 +34,7 @@
 
 require_once './Sfphp/__base.php';
 
-if(!file_exists("./Etc/Config/config.xml")) {
+if(!is_dir("./Etc/")) {
 	echo "Inicializando el framework...<br>";
 	file_put_contents("./sfphp.md5", Sfphp_Disco::MD5("./Sfphp"));
 	echo "Inicializando directorios...<br>";
@@ -50,28 +50,28 @@ if(!file_exists("./Etc/Config/config.xml")) {
 		file_put_contents("./App/Core/Modelos/.htaccess", "Options -Indexes");
 		file_put_contents("./App/Core/Vistas/.htaccess", "Options -Indexes");
 		file_put_contents("./App/Core/Controladores/Inicio.php", "<?php class Controladores_Inicio extends Sfphp_Controlador{ public function inicio() { echo 'sfphp2::Hola Mundo'; } }");
-		chmod("./App/.htaccess", 0750);
-		chmod("./App/Core/.htaccess", 0750);
-		chmod("./App/Core/Controladores/.htaccess", 0750);
-		chmod("./App/Core/Modelos/.htaccess", 0750);
-		chmod("./App/Core/Vistas/.htaccess", 0750);
+		chmod("./App/.htaccess", 0740);
+		chmod("./App/Core/.htaccess", 0740);
+		chmod("./App/Core/Controladores/.htaccess", 0740);
+		chmod("./App/Core/Modelos/.htaccess", 0740);
+		chmod("./App/Core/Vistas/.htaccess", 0740);
 		chmod("./App/Core/Controladores/Inicio.php", 0770);
 	}
 	if(!is_dir("./Libs"))
 		mkdir("./Libs", 0770);
 	if(!is_dir("./Etc")) {
-		mkdir("./Etc", 0750);
-		mkdir("./Etc/Config", 0750);
-		mkdir("./Etc/Logs", 0750);
-		mkdir("./Etc/Sesiones", 0750);
+		mkdir("./Etc", 0740);
+		mkdir("./Etc/Config", 0740);
+		mkdir("./Etc/Logs", 0740);
+		mkdir("./Etc/Sesiones", 0740);
 		file_put_contents("./Etc/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Config/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Logs/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Sesiones/.htaccess", "Options -Indexes");
-		chmod("./Etc/.htaccess", 0750);
-		chmod("./Etc/Config/.htaccess", 0750);
-		chmod("./Etc/Logs/.htaccess", 0750);
-		chmod("./Etc/Sesiones/.htaccess", 0750);
+		chmod("./Etc/.htaccess", 0740);
+		chmod("./Etc/Config/.htaccess", 0740);
+		chmod("./Etc/Logs/.htaccess", 0740);
+		chmod("./Etc/Sesiones/.htaccess", 0740);
 	}
 } else {
 	echo "Inicializando archivo de configuración...<br>";
@@ -115,11 +115,8 @@ if(!file_exists("./Etc/Config/config.xml")) {
 			'showphperrors' => 0,
 		),
 	);
-	if(Sfphp_Disco::grabaXML($_config,"config","./Etc/Config/config.xml"))
-	{
+	if(Sfphp_Disco::grabaXML($_config,"config","./Etc/Config/config.xml")) {
 		chmod("./Etc/Config/config.xml", 0770);
-		echo "Configuración basica completa.<br>";
-		echo "<a href=\"./\">Ve al inicio de tu app</a>";
 	}
 	else
 		echo "Hubo un error al escribir la configuracion.<br>";
