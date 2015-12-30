@@ -32,7 +32,7 @@
 # y un archivo de configuración con los parametros obligados
 # -----------------------
 
-require_once './Sfphp/_base.php';
+require_once './Sfphp/__base.php';
 
 if(!file_exists("./Etc/Config/config.xml")) {
 	echo "Inicializando el framework...<br>";
