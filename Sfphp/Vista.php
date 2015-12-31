@@ -246,6 +246,8 @@ final class Sfphp_Vista {
           },\n";
 			} else 
 				$_cambios = false;
+			if(is_array($_data))
+				return false;
 			$objeto = get_object_vars($this);
 			if(isset($objeto[$_data])) {
 				$_datos = $objeto[$_data];
