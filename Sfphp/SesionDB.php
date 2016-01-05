@@ -51,7 +51,6 @@ final class Sfphp_SesionDB implements SessionHandlerInterface {
         $resultados = $this->_db->query("SELECT data FROM __sesiones
                     WHERE id = :id LIMIT 1;",array("id"=>$id));
         if($resultados) {
-            //var_dump(Sfphp::Decrypt($resultados[0]['data']));//die();
             return(string)@Sfphp::Decrypt($resultados[0]['data']);
         }else {
             return(String)@'';
