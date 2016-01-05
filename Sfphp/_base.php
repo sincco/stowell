@@ -69,6 +69,9 @@ spl_autoload_register(
 
 Sfphp_Config::get();
 
+if(!defined('APP_CACHE'))
+    define('APP_CACHE', FALSE);
+
 if(DEV_SHOWPHPERRORS)
     ini_set('display_errors', 'On');
 else
