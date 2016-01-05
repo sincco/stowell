@@ -32,10 +32,13 @@
 # -----------------------
 
 final class Sfphp_SesionDB implements SessionHandlerInterface {
-    private $_db;
+    protected $_db;
+
+    public function __construct() {
+        $this->_db = Sfphp_BaseDatos::get();
+    }
 
     public function open($savePath, $sessionName) {
-        $this->_db = new BaseDatos();
         return true;
     }
 
@@ -48,10 +51,8 @@ final class Sfphp_SesionDB implements SessionHandlerInterface {
         $resultados = $this->_db->query("SELECT data FROM __sesiones
                     WHERE id = :id LIMIT 1;",array("id"=>$id));
         if($resultados) {
-            if(SESSION_ENCRYPT)
-                return(string)@Sfphp::Decrypt($resultados[0]['data']);
-            else
-                return(string)@$resultados[0]['data'];
+            //var_dump(Sfphp::Decrypt($resultados[0]['data']));//die();
+            return(string)@Sfphp::Decrypt($resultados[0]['data']);
         }else {
             return(String)@'';
         }
@@ -62,10 +63,7 @@ final class Sfphp_SesionDB implements SessionHandlerInterface {
         if(strlen(trim($data)) > 0) {
             $consulta = "REPLACE INTO __sesiones
                         SET id = :id, fecha = NOW(), data = :data;";
-            if(SESSION_ENCRYPT)
-                $valores = array("id"=>$id,"data"=>Sfphp::Encrypt($data));
-            else
-                $valores = array("id"=>$id, "data"=>$data);
+            $valores = array("id"=>$id,"data"=>Sfphp::Encrypt($data));
             return $this->_db->query($consulta, $valores);
         }
     }
