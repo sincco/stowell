@@ -96,6 +96,13 @@ se obtiene:
 (['rojo'] => NULL) 
 ```
 
+### Cache
+Al incluir dentro del archivo de configuración, en la sección <app> la variable <cache>, se activa el manejo de cache, en que cada query compuesto (con joins) almacena los datos resueltos para evitar una nueva petición a la base de datos. El contenido de la variable se define en los segundos que el resultado previo estará vigente.
+...
+<cache>segundos</cache>
+...
+Los archivos de cache se guardan en Etc/Cache
+
 ### Nginx
 Configuración básica para un vhost en Nginx
 ```
