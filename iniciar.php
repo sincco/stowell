@@ -26,7 +26,7 @@
 #
 # -----------------------
 # @author: Iván Miranda
-# @version: 1.0.0
+# @version: 1.0.1
 # -----------------------
 # Inicia la configuración básica del frame, creando los directorios necesarios
 # y un archivo de configuración con los parametros obligados
@@ -43,18 +43,18 @@ if(!is_dir("./Etc/")) {
 		mkdir("./App/Core", 0770);
 		mkdir("./App/Core/Controladores", 0770);
 		mkdir("./App/Core/Modelos", 0770);
-		mkdir("./App/Core/Vistas", 0770);
+		mkdir("./App/Vistas", 0770);
 		file_put_contents("./App/.htaccess", "Options -Indexes");
 		file_put_contents("./App/Core/.htaccess", "Options -Indexes");
 		file_put_contents("./App/Core/Controladores/.htaccess", "Options -Indexes");
 		file_put_contents("./App/Core/Modelos/.htaccess", "Options -Indexes");
-		file_put_contents("./App/Core/Vistas/.htaccess", "Options -Indexes");
+		file_put_contents("./App/Vistas/.htaccess", "Options -Indexes");
 		file_put_contents("./App/Core/Controladores/Inicio.php", "<?php class Controladores_Inicio extends Sfphp_Controlador{ public function inicio() { echo 'sfphp2::Hola Mundo'; } }");
 		chmod("./App/.htaccess", 0740);
 		chmod("./App/Core/.htaccess", 0740);
 		chmod("./App/Core/Controladores/.htaccess", 0740);
 		chmod("./App/Core/Modelos/.htaccess", 0740);
-		chmod("./App/Core/Vistas/.htaccess", 0740);
+		chmod("./App/Vistas/.htaccess", 0740);
 		chmod("./App/Core/Controladores/Inicio.php", 0770);
 	}
 	if(!is_dir("./Libs"))
@@ -64,14 +64,17 @@ if(!is_dir("./Etc/")) {
 		mkdir("./Etc/Config", 0740);
 		mkdir("./Etc/Logs", 0740);
 		mkdir("./Etc/Sesiones", 0740);
+		mkdir("./Etc/Cache", 0740);
 		file_put_contents("./Etc/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Config/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Logs/.htaccess", "Options -Indexes");
 		file_put_contents("./Etc/Sesiones/.htaccess", "Options -Indexes");
+		file_put_contents("./Etc/Cache/.htaccess", "Options -Indexes");
 		chmod("./Etc/.htaccess", 0740);
 		chmod("./Etc/Config/.htaccess", 0740);
 		chmod("./Etc/Logs/.htaccess", 0740);
 		chmod("./Etc/Sesiones/.htaccess", 0740);
+		chmod("./Etc/Cache/.htaccess", 0740);
 	}
 } else {
 	echo "Inicializando archivo de configuración...<br>";
@@ -81,32 +84,28 @@ if(!is_dir("./Etc/")) {
 			'key' => $_llave_encripcion,
 			'name' => 'sfphp',
 			'company' => 'sincco.com',
+			'cache' => 300,
 		),
 		'front' => array (
 			'url' => sprintf("%s://%s%s",
 				isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
-			    $_SERVER['SERVER_NAME'],
-			    $_SERVER['REQUEST_URI']
+				$_SERVER['SERVER_NAME'],
+				$_SERVER['REQUEST_URI']
 			),
 		),
 		'bases' => array (
-			'base' => array(
+			'default' => array(
 				'host' => 'sfphp',
 				'user' => 'sfphp',
 				'password' => Sfphp::encrypt('sfphp',$_llave_encripcion),
 				'dbname' => 'sfphp',
 				'type' => 'mysql',
-				'default' => 1,
 			),
-			'type' => "DEFAULT",
-			'name' => "sfphp",
-			'ssonly' => 0,
-			'inactivity' => 60,
 		),
 		'session' => array (
 			'type' => "DEFAULT",
 			'name' => "sfphp",
-			'ssonly' => 0,
+			'ssl' => 0,
 			'inactivity' => 60,
 		),
 		'dev' => array (
