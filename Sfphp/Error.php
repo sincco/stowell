@@ -34,8 +34,6 @@
 final class Sfphp_Error extends Exception {
     // Redefinir la excepción, por lo que el mensaje no es opcional
     public function __construct($message, $code = 0, Exception $previous = null) {
-        // algo de código
-    
         // asegúrese de que todo está asignado apropiadamente
         parent::__construct($message, $code, $previous);
     }
@@ -43,5 +41,73 @@ final class Sfphp_Error extends Exception {
     // representación de cadena personalizada del objeto
     public function __toString() {
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+    }
+
+    public function procesa($errno, $errstr, $errfile, $errline) {
+        if (!(error_reporting() & $errno)) {
+            // Este código de error no está incluido en error_reporting
+            return;
+        }
+        switch ($errno) {
+            case E_USER_ERROR:
+                $data = "[ERROR {$errno}]\n\rDesc::{$errstr}\n\rFile::{$errfile}\n\rLine::{$errline}\n\r";
+                Sfphp_Logs::set($data, "err");
+                $data = str_replace("\n\r", "<br>", $data);
+                $data = str_replace("[", "<b>[", $data);
+                $data = str_replace("]", "]</b>", $data);
+                self::fatal($data);
+            break;
+            case E_USER_WARNING:
+                $data = "[WARNING {$errno}]\n\rDesc::{$errstr}\n\rFile::{$errfile}\n\rLine::{$errline}\n\r";
+                Sfphp_Logs::set($data, "err");
+            break;
+            case E_USER_NOTICE:
+                $data = "[NOTICE {$errno}]\n\rDesc::{$errstr}\n\rFile::{$errfile}\n\rLine::{$errline}\n\r";
+                Sfphp_Logs::set($data, "err");
+            break;
+            default:
+                $data = "[minor {$errno}]\n\rDesc::{$errstr}\n\rFile::{$errfile}\n\rLine::{$errline}\n\r";
+                Sfphp_Logs::set($data, "err");
+            break;
+        }
+        $data = str_replace("\n\r", "<br>", $data);
+        $data = str_replace("[", "<b>[", $data);
+        $data = str_replace("]", "]</b>", $data);
+        if(DEV_SHOWERRORS)
+            self::draw($data);
+        return true;
+    }
+
+    private function draw($data) {
+        echo $data;
+    }
+
+    private function fatal($data) {
+    ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title><?php echo APP_NAME ?></title>
+             <!-- Bootstrap Table -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        </head>
+        <body>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                <?php echo $data ?>
+                </div>
+            </div>
+            <nav>
+                <ul class="pager">
+                    <li class="previous"><a href="javascript:window.history.back()"><span aria-hidden="true">&larr;</span> Regresar</a></li>
+                </ul>
+            </nav>
+        </body>
+        </html>
+    <?php
+        exit(1);
     }
 }

@@ -58,8 +58,8 @@ spl_autoload_register(
                 elseif(file_exists("./Libs/".$_archivo)) {
                     include_once "./Libs/".$_archivo;
                 }
-                else  {
-                    throw new Sfphp_Error("La clase {$nombreClase} no existe :: {$_archivo}", 1);
+                else {
+                    trigger_error("La clase {$nombreClase} no existe :: {$_archivo}", E_USER_ERROR);
                 }
             }
         }
@@ -72,10 +72,4 @@ Sfphp_Config::get();
 if(!defined('APP_CACHE'))
     define('APP_CACHE', FALSE);
 
-if(DEV_SHOWPHPERRORS)
-    ini_set('display_errors', 'On');
-else
-    ini_set('display_errors', 'Off');
-
-# Registro de logs
-define('DEV_LOGFILE', './Etc/Logs/'.date('YW').'.txt');
+set_error_handler("Sfphp_Error::procesa");

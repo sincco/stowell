@@ -76,7 +76,7 @@ final class Sfphp_Conexiones
 				} 
 				catch (PDOException $e) 
 				{ 
-						Sfphp_Logs::procesa($e);
+						Sfphp_Logs::error($e);
 				}
 			}
 		}
@@ -126,7 +126,7 @@ final class Sfphp_Conexiones
 					$statement->closeCursor();
 				}
 				catch(PDOException $e) {
-					Sfphp_Logs::procesa($e);
+					Sfphp_Logs::error($e);
 					return false;
 				}
 				return $resultado;
@@ -152,7 +152,7 @@ final class Sfphp_Conexiones
 						$statement->closeCursor();
 					}
 					catch(PDOException $e) {
-						Sfphp_Logs::procesa($e);
+						Sfphp_Logs::error($e);
 						return false;
 					}
 					return $resultado;
@@ -175,7 +175,7 @@ final class Sfphp_Conexiones
 						$resultado = self::$instancia->conexionActual->lastInsertId();
 				}
 				catch(PDOException $e) {
-						Sfphp_Logs::procesa($e);
+						Sfphp_Logs::error($e);
 						return false;
 				}
 				return $resultado;

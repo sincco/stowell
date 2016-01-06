@@ -68,8 +68,8 @@ final class Sfphp_BaseDatos {
                         $base["user"], Sfphp::decrypt($base["password"]));
                     break;
             }
-        } catch (PDOException $e) { 
-            Sfphp_Logs::procesa($e);
+        } catch (PDOException $e) {
+            trigger_error($e->getMessage(), E_USER_ERROR);
         }
     }
     public static function get($base = "default")
@@ -124,8 +124,7 @@ final class Sfphp_BaseDatos {
                 $statement->closeCursor();
             }
             catch(PDOException $e) {
-                Sfphp_Logs::procesa($e);
-                return false;
+                trigger_error($e->getMessage(), E_USER_ERROR);
             }
             if($cache)
                 Sfphp_Cache::set(md5($_query), $resultado);
@@ -151,8 +150,7 @@ final class Sfphp_BaseDatos {
                 $statement->closeCursor();
             }
             catch(PDOException $e) {
-                Sfphp_Logs::procesa($e);
-                return false;
+                trigger_error($e->getMessage(), E_USER_ERROR);
             }
             return $resultado;
         }
@@ -173,8 +171,7 @@ final class Sfphp_BaseDatos {
                 $resultado = self::$conexion->lastInsertId();
             }
             catch(PDOException $e) {
-                Sfphp_Logs::procesa($e);
-                return false;
+                trigger_error($e->getMessage(), E_USER_ERROR);
             }
             return $resultado;
         }

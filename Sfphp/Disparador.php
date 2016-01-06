@@ -45,14 +45,15 @@ final class Sfphp_Disparador {
 				$objClase = new $clase();
 				if(is_callable(array($objClase, $peticion['_accion'])))
 					call_user_func(array($objClase, $peticion['_accion']));
-				else
-					throw new Sfphp_Error("La accion {$peticion['_accion']} no esta definida en {$clase}", 1);
+				else {
+					header("Location: ".BASE_URL."Etc/Errors/process.php?code=401");
+					die();
+				}
 			} else {
-				header("Location: ".BASE_URL."Etc/Errors/process.php?code=401");
-				die();
+				trigger_error("La accion {$peticion['_accion']} no esta definida en {$clase}", E_USER_ERROR);
 			}
 		} catch (Sfphp_Error $e) {
-			Sfphp_Logs::procesa($e);
+			Sfphp_Logs::error($e);
 		}
 	}
 
