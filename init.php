@@ -39,16 +39,16 @@ require_once './Sfphp/__base.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo APP_NAME ?></title>
-     <!-- Bootstrap Table -->
+    <title>sfphp</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="shortcut icon" href="{BASE_URL}favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
     <div class="panel panel-primary">
         <div class="panel-heading">Simple Framework (for) PHP</div>
-<?php 
+<?php
+$url = (isset($_SERVER['HTTPS']) ? "https://" : "http://").$_SERVER['SERVER_NAME']."/";
 if(!file_exists("./Etc/Config/config.xml")) {
 	echo "Inicializando el framework...<br>";
 	file_put_contents("./sfphp.md5", Sfphp_Disco::MD5("./Sfphp"));
@@ -72,8 +72,6 @@ if(!file_exists("./Etc/Config/config.xml")) {
 		chmod("./App/Vistas/.htaccess", 0750);
 		chmod("./App/Core/Controladores/Inicio.php", 0770);
 	}
-	if(!is_dir("./Libs"))
-		mkdir("./Libs", 0770);
 	if(!is_dir("./Etc")) {
 		mkdir("./Etc", 0750);
 		mkdir("./Etc/Config", 0750);
@@ -101,11 +99,7 @@ if(!file_exists("./Etc/Config/config.xml")) {
 			'cache' => '600',
 		),
 		'front' => array (
-			'url' => sprintf("%s://%s%s",
-				isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
-			    $_SERVER['SERVER_NAME'],
-			    $_SERVER['REQUEST_URI']
-			),
+			'url' => $url,
 		),
 		'bases' => array (
 			'default' => array(
@@ -117,10 +111,10 @@ if(!file_exists("./Etc/Config/config.xml")) {
 				'default' => 1,
 			),
 		),
-		'session' => array (
+		'sesion' => array (
 			'type' => "DEFAULT",
 			'name' => "sfphp",
-			'ssonly' => 0,
+			'ssl' => 0,
 			'inactivity' => 300,
 		),
 		'dev' => array (
@@ -138,14 +132,10 @@ if(!file_exists("./Etc/Config/config.xml")) {
 		echo "Hubo un error al escribir la configuracion.<br>";
 } else {
 	echo "El framework ya esta configurado<br>";
-	echo "<a href=\"./\">Ve al inicio de tu app</a>";
+	echo "<a href=\"./\">Ve al inicio de tu app</a><br>";
+	echo "<a href=\"./encrypt.php\">Ve al inicio de tu app</a><br>";
 }
 ?>
     </div>
-    <nav>
-        <ul class="pager">
-            <li class="previous"><a href="javascript:window.history.back()"><span aria-hidden="true">&larr;</span> Regresar</a></li>
-        </ul>
-    </nav>
 </body>
 </html>
