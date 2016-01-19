@@ -38,7 +38,7 @@ abstract class Sfphp_Controlador {
 	abstract function inicio();
 	
 	# Cualquier instancia tiene el atributo de vista inicilizado
-	public function __construct(){
+	public function __construct() {
 		$this->_vista = new Sfphp_Vista();
 	}
 	# Metodo mágico para cargar elementos al controlador

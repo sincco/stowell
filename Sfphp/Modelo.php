@@ -26,7 +26,7 @@
 #
 # -----------------------
 # @author: Iván Miranda
-# @version: 1.0.0
+# @version: 1.0.1
 # -----------------------
 # Clase abstracta para cualquier modelo en la aplicación, cualquier instancia derivada se conecta automaticamente a la BD
 # -----------------------
@@ -46,11 +46,11 @@ abstract class Sfphp_Modelo {
 		return $this->db->query("SELECT * FROM ".$tabla.";");
 	}
 
-	public function query($query) {
+	public function query($query, $valores = array()) {
 		return $this->db->query($query);
 	}
 
-	public function insert($query) {
+	public function insert($query, $valores = array()) {
 		return $this->db->insert($query);
 	}
 }

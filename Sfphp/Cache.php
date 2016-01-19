@@ -34,48 +34,38 @@
 final class Sfphp_Cache {
 
 	public function get($llave) {
-		$_cache = self::loadCache();
-		if(isset($_cache[$llave])) {
-			$_item = json_decode($_cache[$llave], TRUE);
-			return json_decode($_item["data"], TRUE);
-		}
-		else
-			return FALSE;
+		$cache = self::loadCache($llave);
+		return $cache;
 	}
 
 	public function set($llave, $contenido) {
-		$_cache = self::loadCache();
-		$_data = array("data" => json_encode($contenido),
-				"exp" => time());
-		$_cache[$llave] = json_encode($_data);
-		self::writeCache($_cache);
+		if(count($contenido))
+			self::writeCache($llave, $contenido);
 	}
 
 	public function clear() {
-		array_map('unlink', glob("./Etc/Cache/".session_id()."*"));
+		array_map('unlink', glob("./Etc/Cache/*"));
 	}
 
-	private function loadCache() {
-		$_archivo = "./Etc/Cache/".session_id();
-		if(file_exists($_archivo)) {
-			$_cache = json_decode(file_get_contents($_archivo), TRUE);
-			self::expirate($_cache);
-			return $_cache;
-		}
-		else 
-			return array();
+	private function loadCache($llave) {
+		$cache = FALSE;
+		$archivo = "./Etc/Cache/".$llave;
+		self::expirate($archivo);
+		if(file_exists($archivo))
+			$cache = json_decode(file_get_contents($archivo), TRUE);
+		return $cache;
 	}
 
-	private function writeCache($contenido) {
-		$_archivo = "./Etc/Cache/".session_id();
-		file_put_contents($_archivo, json_encode($contenido));
+	private function writeCache($llave, $contenido) {
+		$archivo = "./Etc/Cache/".$llave;
+		file_put_contents($archivo, json_encode($contenido));
 	}
 
-	private function expirate(&$cache) {
-		foreach ($cache as $key => $value) {
-			$_cache = json_decode($value,TRUE);
-			if(APP_CACHE <= (time() - $_cache["exp"]))
-				unset($cache[$key]);
+	private function expirate($archivo) {
+		if(file_exists($archivo)) {
+			$diferencia = time()-intval(filemtime($archivo));
+			if($diferencia > APP_CACHE)
+				unlink($archivo);
 		}
 	}
 }

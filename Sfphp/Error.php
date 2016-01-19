@@ -43,6 +43,7 @@ final class Sfphp_Error extends Exception {
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
 
+    // Procesa el log del sistema
     public function procesa($errno, $errstr, $errfile, $errline) {
         if (!(error_reporting() & $errno)) {
             // Este código de error no está incluido en error_reporting
@@ -51,7 +52,7 @@ final class Sfphp_Error extends Exception {
         switch ($errno) {
             case E_USER_ERROR:
                 $data = "[ERROR {$errno}]\n\rDesc::{$errstr}\n\rFile::{$errfile}\n\rLine::{$errline}\n\r";
-                Sfphp_Logs::set($data, "err");
+                Sfphp_Log::set($data, "err");
                 $data = str_replace("\n\r", "<br>", $data);
                 $data = str_replace("[", "<b>[", $data);
                 $data = str_replace("]", "]</b>", $data);
@@ -59,15 +60,15 @@ final class Sfphp_Error extends Exception {
             break;
             case E_USER_WARNING:
                 $data = "[WARNING {$errno}]\n\rDesc::{$errstr}\n\rFile::{$errfile}\n\rLine::{$errline}\n\r";
-                Sfphp_Logs::set($data, "err");
+                Sfphp_Log::set($data, "err");
             break;
             case E_USER_NOTICE:
                 $data = "[NOTICE {$errno}]\n\rDesc::{$errstr}\n\rFile::{$errfile}\n\rLine::{$errline}\n\r";
-                Sfphp_Logs::set($data, "err");
+                Sfphp_Log::set($data, "err");
             break;
             default:
                 $data = "[minor {$errno}]\n\rDesc::{$errstr}\n\rFile::{$errfile}\n\rLine::{$errline}\n\r";
-                Sfphp_Logs::set($data, "err");
+                Sfphp_Log::set($data, "err");
             break;
         }
         $data = str_replace("\n\r", "<br>", $data);

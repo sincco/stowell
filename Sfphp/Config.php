@@ -31,14 +31,12 @@
 # Carga de configuración de la APP
 # -----------------------
 
-final class Sfphp_Config 
-{
+final class Sfphp_Config  {
 
 	private $config;
 	private static $instancia;
 
-	private function __construct()
-	{
+	private function __construct() {
 		$local = "./Etc/Config/config_local.xml";
 		$file = "./Etc/Config/config.xml";
 		if(file_exists($local))
@@ -57,8 +55,7 @@ final class Sfphp_Config
 		$this->config = $_config;
 	}
 
-	public static function get($atributo = '')
-	{
+	public static function get($atributo = '') {
 		if(!self::$instancia instanceof self)
 			self::$instancia = new self();
 		if(strlen(trim($atributo)))
@@ -67,16 +64,14 @@ final class Sfphp_Config
 			return self::$instancia->config;
 	}
 
-	private function xml2array($xml)
-	{
+	private function xml2array($xml) {
 		$resp = array();
 		foreach ( (array) $xml as $indice => $nodo )
 			$resp[$indice] = ( is_object ( $nodo ) ) ? self::xml2array($nodo) : $nodo;
 		return $resp;
 	}
 
-	private function url()
-	{
+	private function url() {
 		return sprintf(
 			"%s://%s%s",
 			isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',

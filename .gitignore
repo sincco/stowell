@@ -1,6 +1,8 @@
-#Excluir la APP del repositorio maestro
-/App
-/Etc
-/html
+Etc/Sesiones/*
+Etc/Logs/*
+Etc/Cache/*
+Etc/Config/config.xml
+Etc/Config/config_local.xml
+App/Vistas/Login.tpl
 *.md
 *.md5

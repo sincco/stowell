@@ -66,10 +66,16 @@ spl_autoload_register(
     }
 );
 
-
+# Se obtiene la configuración
 Sfphp_Config::get();
 
+# Se aplica el valor por default de la cache
 if(!defined('APP_CACHE'))
     define('APP_CACHE', FALSE);
 
+# Se aplica el valor por default del log de querys
+if(!defined('DEV_QUERYLOG'))
+    define('DEV_QUERYLOG', FALSE);
+
+# La función que captura los errores del framework
 set_error_handler("Sfphp_Error::procesa");
