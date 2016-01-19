@@ -1,11 +1,10 @@
 <?php
-class ElasticEmail
-{
-	function send($para, $asunto, $contenidoTxt, $contenidoHtml, $de, $deNombre)
+final class ElasticEmail {
+	public function send($para, $asunto, $contenidoTxt, $contenidoHtml, $de, $deNombre)
 	{
 		$respuesta = "";
-		$_data = "username=".urlencode("b1f108e0-7462-4061-9921-b969a31d1e6d");
-		$_data .= "&api_key=".urlencode("b1f108e0-7462-4061-9921-b969a31d1e6d");
+		$_data = "username=".urlencode();
+		$_data .= "&api_key=".urlencode();
 		$_data .= "&from=".urlencode($de);
 		$_data .= "&from_name=".urlencode($deNombre);
 		$_data .= "&to=".urlencode($para);
