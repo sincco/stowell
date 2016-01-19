@@ -66,6 +66,7 @@ spl_autoload_register(
     }
 );
 
+
 # Se obtiene la configuración
 Sfphp_Config::get();
 

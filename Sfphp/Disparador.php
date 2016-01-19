@@ -33,6 +33,9 @@
 
 final class Sfphp_Disparador {
 	public function __construct() {
+		# Limpiar cache expirada
+		Sfphp_Cache::expirate();
+		# Aplicar la sesión
 		Sfphp_Sesion::get();
 		$peticion = Sfphp_Peticion::get();
 		$clase = NULL;

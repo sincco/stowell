@@ -36,7 +36,6 @@ final class Sfphp_BaseDatos {
     static private $instancia;
     # Conexion a la BD desde la creación de la clase
     private function __construct($configuracion = "default") {
-        Sfphp_Log::set("Conexion a BD");
         $base = Sfphp_Config::get('bases');
         $base = $base[$configuracion];
         self::$origen = $configuracion;

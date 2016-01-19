@@ -66,12 +66,12 @@ Sólo puedes tener una por default (a la que se conectan todos los modelos por d
 ### Opciones de desarrollo
 ```
 <dev>
-		<log>1|0 activa el log del framework (en Etc/Logs)</log>
-		<showerrors>1|0 muestra los errores propios del framework en pantalla</showerrors>
-		<showphperrors>1|0 muestra los errores de php</showphperrors>
-                <querylog>1|0 activa un log de querys ejecutados</querylog>
-                <contact>correo de contacto para soporte</contact>
-	</dev>
+	<log>1|0 activa el log del framework (en Etc/Logs)</log>
+	<showerrors>1|0 muestra los errores propios del framework en pantalla</showerrors>
+	<showphperrors>1|0 muestra los errores de php</showphperrors>
+        <querylog>1|0 activa un log de querys ejecutados</querylog>
+        <contact>correo de contacto para soporte</contact>
+</dev>
 ```
 
 ### Cache
