@@ -22,6 +22,7 @@ App
 |-Modelos
 |-Vistas
 Etc
+|-Cache
 |-Config
 |-|-config.xml
 |-Logs
@@ -39,6 +40,7 @@ Clona el branch skeleton, con una app sencilla de ejemplo
 	<key>la clave generada por el script iniciar.php o que puedes obtener desde el script llave.php</key>
 	<name>nombre de la app</name>
 	<company>sincco</company>
+        <cache>segundos</cache>
 </app>
 ```
 ### Front end
@@ -66,8 +68,18 @@ Sólo puedes tener una por default (a la que se conectan todos los modelos por d
 		<log>1|0 activa el log del framework (en Etc/Logs)</log>
 		<showerrors>1|0 muestra los errores propios del framework en pantalla</showerrors>
 		<showphperrors>1|0 muestra los errores de php</showphperrors>
+                <querylog>1|0 activa un log de querys ejecutados</querylog>
 	</dev>
 ```
+
+### Cache
+Si la configuración lo especifica, se activa por default el cache para querys, que evita la petición excesiva a la BD
+Estos archivos son vigentes durante los segundos indicados en la configuración y se depuran sobre las peticiones al sistema
+Su depuración manual es eliminando los registros data_* del directorio Cache
+
+### Query log
+Dentro del directorio de Logs, se deja un archivo .sql con los querys que se ejecutan en los controladores de datos
+
 
 ### Peticiones
 Cada petición se procesa seccionando la URL del siguiente modo:

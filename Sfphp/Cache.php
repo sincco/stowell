@@ -47,10 +47,19 @@ final class Sfphp_Cache {
 		array_map('unlink', glob("./Etc/Cache/*"));
 	}
 
+	public function expirate() {
+		foreach (scandir("./Etc/Cache") as $archivo) {
+			if(!is_dir("./Etc/Cache/".$archivo)) {
+				$diferencia = time()-intval(filemtime("./Etc/Cache/".$archivo));
+				if($diferencia > APP_CACHE)
+					unlink("./Etc/Cache/".$archivo);
+			}
+		}
+	}
+
 	private function loadCache($llave) {
 		$cache = FALSE;
 		$archivo = "./Etc/Cache/".$llave;
-		self::expirate($archivo);
 		if(file_exists($archivo))
 			$cache = json_decode(file_get_contents($archivo), TRUE);
 		return $cache;
@@ -61,11 +70,4 @@ final class Sfphp_Cache {
 		file_put_contents($archivo, json_encode($contenido));
 	}
 
-	private function expirate($archivo) {
-		if(file_exists($archivo)) {
-			$diferencia = time()-intval(filemtime($archivo));
-			if($diferencia > APP_CACHE)
-				unlink($archivo);
-		}
-	}
 }
