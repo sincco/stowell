@@ -159,17 +159,3 @@ http://opensource.org/licenses/osl-3.0.php
 
 **Happy coding!**
 - [ivan miranda](http://ivanmiranda.me)
-I791bgivXX
-Gpys5m8eU8un3LyX
-
-find /usr/share/sincco/bkp/mysql -name "*.gz" -mtime +7 -exec rm -rf {} \;
-
-3086810490225789
-
-APSU8rnEHCPPBRcK
-
-PHP y alta disponibilidad
-
-<p>Cada tarea tiene su herramienta ideal, las herramientas del </p>
-No es 100% orientado a objetos.
-Caché
