@@ -76,6 +76,7 @@ Sólo puedes tener una por default (a la que se conectan todos los modelos por d
 Si la configuración lo especifica, se activa por default el cache para querys, que evita la petición excesiva a la BD
 Estos archivos son vigentes durante los segundos indicados en la configuración y se depuran sobre las peticiones al sistema
 Su depuración manual es eliminando los registros data_* del directorio Cache
+Se incluye el script clear_cache, para eliminar toda la caché del sistema
 
 ### Query log
 Dentro del directorio de Logs, se deja un archivo .sql con los querys que se ejecutan en los controladores de datos
