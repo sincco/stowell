@@ -41,6 +41,7 @@ Clona el branch skeleton, con una app sencilla de ejemplo
 	<name>nombre de la app</name>
 	<company>sincco</company>
         <cache>segundos</cache>
+        <eemailapi>API de ElasticMail</eemailapi>
 </app>
 ```
 ### Front end
@@ -69,6 +70,7 @@ Sólo puedes tener una por default (a la que se conectan todos los modelos por d
 		<showerrors>1|0 muestra los errores propios del framework en pantalla</showerrors>
 		<showphperrors>1|0 muestra los errores de php</showphperrors>
                 <querylog>1|0 activa un log de querys ejecutados</querylog>
+                <contact>correo de contacto para soporte</contact>
 	</dev>
 ```
 
@@ -108,6 +110,9 @@ se obtiene:
 (['fruta'] => ['color']) ,
 (['rojo'] => NULL) 
 ```
+
+### Log de errores
+Ejecutando el script error_notification.php se envia un correo a la direccion configurada con el log actual de errores.
 
 ### Nginx
 Configuración básica para un vhost en Nginx
