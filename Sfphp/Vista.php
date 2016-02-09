@@ -58,6 +58,7 @@ final class Sfphp_Vista {
 
 #Carga el contenido de un archivo
 	private function cargarArchivo($vista) {
+		$vista = str_replace("_", "/", $vista);
 		$_path = $this->_path.$vista;
 		$_respuesta = FALSE;
 		if(file_exists($_path))

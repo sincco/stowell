@@ -38,13 +38,13 @@ final class Sfphp_Peticion
 	private $_accion;
 	private $_parametros;
 	private $_previa;
-	private $metodo;
+	private $_metodo;
 	private static $_instancia;
 
 # La estructura de una peticion es:
 #   modulo/controlador/accion/[parametros]
 	private function __construct() {
-		$this->metodo = strtoupper(trim($_SERVER['REQUEST_METHOD']));
+		$this->_metodo = strtoupper(trim($_SERVER['REQUEST_METHOD']));
 		if(isset($_SERVER['HTTP_REFERER']))
 			$this->_previa = $_SERVER['HTTP_REFERER'];
 		else

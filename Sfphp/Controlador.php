@@ -45,14 +45,18 @@ abstract class Sfphp_Controlador {
 	public function __get($elemento) {
 	# Modelos
 		if("modelo" == substr($elemento,0,6)) {
-			$clase = "Modelos_".substr($elemento,6);
-			$_modelo = explode("_", get_class($this));
-			$_modelo = strtolower($_modelo[0]);
+			$clase = "";
+			$_ultimo = array_pop(explode("_", str_replace("modelo", "", $elemento)));
+			foreach (explode("_", str_replace("modelo", "", $elemento)) as $_segmento) {
+				if($_segmento == $_ultimo)
+					$clase .= "Modelos_".$_segmento;
+				else
+					$clase .= $_segmento."_";
+			}
 			return new $clase();
 		}
 	# Vistas
 		if("vista" == substr($elemento,0,5)) {
-			#var_dump($this->_vista);
 			$this->_vista->dibuja(substr($elemento,5));
 		}
 	# Atributos
