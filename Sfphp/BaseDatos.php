@@ -67,7 +67,7 @@ final class Sfphp_BaseDatos {
                     self::$conexion = new PDO($base["type"].":".$base["host"].$base["dbname"]);
                     break;
                 case 'odbc':
-                    self::$conexion = new PDO($base['cadena'],array(PDO::ATTR_PERSISTENT => FALSE));
+                    self::$conexion = new PDO($base['cadena'],"","",array(PDO::ATTR_PERSISTENT => FALSE));
                     break;
                 default:
                     self::$conexion = new PDO($base["type"].":host=".$base["host"].";dbname=".$base["dbname"],
