@@ -63,6 +63,12 @@ final class Sfphp_BaseDatos {
                     ));
                     self::$conexion = new PDO($base["type"].":dbname=".$base["host"].$base["dbname"], $base["user"], Sfphp::decrypt($base["password"]), $parametros);
                     break;
+                case 'sqlite':
+                    self::$conexion = new PDO($base["type"].":".$base["host"].$base["dbname"]);
+                    break;
+                case 'odbc':
+                    self::$conexion = new PDO($base['cadena']);
+                    break;
                 default:
                     self::$conexion = new PDO($base["type"].":host=".$base["host"].";dbname=".$base["dbname"],
                         $base["user"], Sfphp::decrypt($base["password"]));

@@ -1,0 +1,36 @@
+[Informacion]
+Cons=11
+UltClave=9
+Version=3.0
+[Cons1]
+Descripcion=Catálogo de materiales (SAE)
+Origen=Materia prima
+Archivo=PW269001.C01
+[Cons2]
+Descripcion=Catálogo de insumos
+Origen=Insumos
+Archivo=PW269002.C01
+[Cons3]
+Descripcion=Catálogo de procesos de producción
+Origen=Procesos
+Archivo=PW269003.C01
+[Cons4]
+Descripcion=Catálogo de sustitutos
+Origen=Sustitutos
+Archivo=PW269004.C01
+[Cons5]
+Descripcion=Catálogo de prod. term.
+Origen=Prod. Term.
+Archivo=PW269005.C01
+[Cons6]
+Descripcion=Catálogo de órdenes
+Origen=Ordenes
+Archivo=PW269006.C01
+[Cons8]
+Descripcion=Explosión de materiales 
+Origen=Explosión
+Archivo=PW269008.C01
+[Cons7]
+Descripcion=Implosión de materiales
+Origen=Implosión
+Archivo=PW269007.C01
