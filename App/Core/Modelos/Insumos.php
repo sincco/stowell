@@ -3,7 +3,7 @@ class Modelos_Insumos extends Sfphp_Modelo
 {
 	public function __construct() {
 	# Crear la conexion
-		$this->db = Sfphp_BaseDatos::get("insumos01");
+		$this->db = Sfphp_BaseDatos::get("ordprod");
 	}
 
 	public function get()
