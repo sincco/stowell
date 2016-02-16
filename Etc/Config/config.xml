@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config><app><key>D6D004F1785782A68CBCACB8296B8EF1</key><name>stowell</name><company>stowell</company><cache>600</cache></app><front><url>http://127.0.0.1/stowell</url></front>
+<bases>
+	<default>
+		<host>127.0.0.1</host>
+		<user>stowell</user>
+		<password>XZxuz/wTvy0dqRvz8TNSznVOVcLm+xfIeKJSrNDRkoo=</password>
+		<dbname>stowell</dbname>
+		<type>mysql</type>
+	</default>
+	<sae>
+		<host>/var/www/html/stowell/_data</host>
+		<user>sysdba</user>
+		<password>5CuS5KZ5VnXiheuvBy3EA8RfT9p4STjhf+76hYJIgY4=</password>
+		<dbname>SAE60EMPRE01.FDB</dbname>
+		<type>firebird</type>
+	</sae>
+	<coie1>
+		<host>/var/www/html/stowell/_data</host>
+		<user>sysdba</user>
+		<password>5CuS5KZ5VnXiheuvBy3EA8RfT9p4STjhf+76hYJIgY4=</password>
+		<dbname>COI70EMPRE01.FDB</dbname>
+		<type>firebird</type>
+	</coie1>
+	<ordprod>
+		<cadena>><![CDATA[DSN=xerium_prod;DBQ=C:\USERS\JORGE\DESKTOP\MI MEMORIA\OTRA BD\STOWE;DefaultDir=C:\USERS\JORGE\DESKTOP\MI MEMORIA\OTRA BD\STOWE;DriverId=538;FIL=Paradox 5.X;MaxBufferSize=2048;PageTimeout=5;]]></cadena>
+		<type>odbc</type>
+	</ordprod>
+</bases>
+<sesion><type>DEFAULT</type><name>stowell</name><ssl>0</ssl><inactivity>300</inactivity></sesion><dev><log>1</log><showerrors>1</showerrors><querylog>0</querylog></dev></config>
